@@ -1,0 +1,33 @@
+name: Deploy with Path Rewriting
+
+on:
+  push:
+    branches:
+      - main # 기본 브랜치 이름이 master라면 master로 변경해주세요.
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # ⭐ CSS는 제외하고 HTML 파일의 경로만 치환합니다.
+      # '내-프로젝트-이름' 부분을 실제 GitHub 저장소 이름으로 꼭 변경해주세요!
+      - name: Rewrite HTML Paths for GitHub Pages
+        run: |
+          PROJECT_NAME="techfin"
+          echo "Rewriting HTML paths for project: $PROJECT_NAME"
+
+          # HTML 파일만 찾아서 href="/...", src="/..." 구조에 프로젝트 이름을 삽입합니다.
+          find . -name "*.html" -type f -exec sed -i -E "s#(href|src)=\"/([^\"]*)\"#\1=\"/$PROJECT_NAME/\2\"#g" {} +
+
+      # 변환된 결과를 gh-pages 브랜치에 자동으로 배포합니다.
+      - name: Deploy to GitHub Pages Branch
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: .
+          branch: gh-pages
