@@ -39,6 +39,24 @@
 
   .filter-checklist-root {
     flex-grow: 1;
+
+    &.filter-finance {
+      height: auto;
+      border: 0;
+      position: absolute;
+      inset: 0;
+      font-size: 14px;
+      color: var(--c-gray1);
+      font-weight: 500;
+    }
+  }
+
+  .table-header {
+    margin-bottom: 0;
+  }
+
+  .datepicker-root {
+    flex-grow: 0;
   }
 }
 
@@ -72,6 +90,32 @@
   position: relative;
   width: 195px;
   border-right: 1px solid var(--c-border2);
+  display: flex;
+  flex-direction: column;
+
+  .tabmenu-menu {
+    margin: 0 8px;
+  }
+
+  .tabmenu-btn {
+    flex: 1;
+    padding-top: 8px !important;
+  }
+}
+
+.filter-cont-section {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  &[hidden] {
+    display: none;
+  }
+  
+  & > .checklist-cont {
+    flex-grow: 1
+  }
 }
 
 .filter-cont-scroll {
@@ -80,7 +124,7 @@
   margin: 0 -8px;
 
   .filter-scroll {
-    padding-top: 0;
+    padding: 0;
   }
 }
 
@@ -205,7 +249,7 @@
       opacity: 0.6;
     }
   }
-  
+
   &[open] {
     summary .i--down {
       transform: scale(0.8) rotate(180deg);
@@ -216,5 +260,12 @@
 .exfilter-details-cont {
   display: flex;
   flex-direction: column;
-  gap: 16px
+  gap: 16px;
+}
+
+.checklist-cont {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 8px;
 }
